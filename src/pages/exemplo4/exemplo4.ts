@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
 
@@ -26,7 +27,7 @@ export class Exemplo4Page {
   }
 
   initializeMap() {
-    this.startPosition = new google.maps.LatLng(-21.763409, -43.349034);
+    this.startPosition = new google.maps.LatLng(-23.552994,-46.399617);
 
     const mapOptions = {
       zoom: 18,
@@ -49,7 +50,11 @@ export class Exemplo4Page {
         // Pode ser uma coordenada (LatLng), uma string ou um lugar
         origin: this.originPosition,
         destination: this.destinationPosition,
-        travelMode: 'DRIVING'
+        travelMode: 'TRANSIT',
+        transitOptions: {
+          mode: ['BUS']
+        }
+
       };
 
       this.traceRoute(this.directionsService, this.directionsDisplay, request);
