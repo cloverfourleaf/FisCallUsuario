@@ -16,21 +16,35 @@ export class Exemplo4Page {
   directionsService = new google.maps.DirectionsService();
   directionsDisplay = new google.maps.DirectionsRenderer();
   map: any;
-  startPosition: any;
+  //inicia o mapa na ETEC
+  startPosition = new google.maps.LatLng(-23.552994,-46.399617);
   originPosition: string;
   destinationPosition: string;
-
-  constructor() { }
+  localAtual: string;
 
   ionViewDidLoad() {
     this.initializeMap();
   }
+  
+  constructor(private geolocation: Geolocation) { }
+  
+  pegarLocalizacao(){
+    this.geolocation.getCurrentPosition()
+    .then((resp) => {
+      this.originPosition = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+      //troca a posiinicial inicia do mapa para a localização atual
+      this.startPosition = this.originPosition;
+      
+      this.initializeMap();
 
+    }).catch((error) => {
+      console.log('Erro ao recuperar sua posição', error);
+    });
+  }
+  
   initializeMap() {
-    this.startPosition = new google.maps.LatLng(-23.552994,-46.399617);
-
     const mapOptions = {
-      zoom: 18,
+      zoom: 17,
       center: this.startPosition,
       disableDefaultUI: true
     }
@@ -50,13 +64,8 @@ export class Exemplo4Page {
         // Pode ser uma coordenada (LatLng), uma string ou um lugar
         origin: this.originPosition,
         destination: this.destinationPosition,
-        travelMode: 'TRANSIT',
-        transitOptions: {
-          mode: ['BUS']
-        }
-
+        travelMode: 'DRIVING'
       };
-
       this.traceRoute(this.directionsService, this.directionsDisplay, request);
     }
   }
