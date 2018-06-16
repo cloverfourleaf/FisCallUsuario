@@ -64,8 +64,12 @@ export class Exemplo4Page {
         // Pode ser uma coordenada (LatLng), uma string ou um lugar
         origin: this.originPosition,
         destination: this.destinationPosition,
-        travelMode: 'DRIVING'
-      };
+        travelMode: 'TRANSIT',
+        transitOptions: {
+          modes: ['BUS'],
+          trafficModel: 'best_guess' 
+        },
+      } ;
       this.traceRoute(this.directionsService, this.directionsDisplay, request);
     }
   }
