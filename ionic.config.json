@@ -1,8 +1,8 @@
 {
-  "name": "googlemapsvideo",
-  "app_id": "e68de612",
-  "type": "ionic-angular",
+  "name": "fiscall",
   "integrations": {
     "cordova": {}
-  }
+  },
+  "type": "ionic-angular",
+  "id": "f7d3a2e4"
 }
